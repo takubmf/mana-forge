@@ -1,0 +1,24 @@
+import React, { useState } from 'react'
+
+function SearchBar(props) {
+
+    const [formState, setFormState] = useState("")
+
+    return (
+        <div>
+            <form>
+                <label for="card-name">Enter card name:</label>
+                <input 
+                    type="text" 
+                    id="card-name" 
+                    name="card-name" 
+                    value={formState} 
+                    onChange={e => setFormState(e.target.value)}
+                    />
+                <button type="button" onClick={(e) => props.searchForCard(e)}>Search</button>
+            </form>
+        </div>
+    )
+}
+
+export default SearchBar
