@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 
 function SearchBar(props) {
 
-    const [formState, setFormState] = useState("")
-
     return (
         <div>
             <form>
@@ -12,8 +10,8 @@ function SearchBar(props) {
                     type="text" 
                     id="card-name" 
                     name="card-name" 
-                    value={formState} 
-                    onChange={e => setFormState(e.target.value)}
+                    value={props.cardName}
+                    onChange={e => props.setCardName(e.target.value)}
                     />
                 <button type="button" onClick={(e) => props.searchForCard(e)}>Search</button>
             </form>

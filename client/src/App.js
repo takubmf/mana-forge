@@ -16,7 +16,7 @@ function App() {
 
   async function searchForCard(e) {
     e.preventDefault()
-    const name = cardName;
+    const name = encodeURIComponent(cardName);
     const url = `https://api.scryfall.com/cards/named?fuzzy=${name}`;
     try {
         const response = await fetch(url);
