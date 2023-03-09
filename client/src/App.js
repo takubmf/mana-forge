@@ -4,10 +4,10 @@ import './App.css';
 import SearchBar from './components/SearchBar';
 import { useState } from 'react';
 import CardContainer from './components/CardContainer';
-import Navbar from './components/navbar/Navbar';
-import Home from './components/pages/Home';
-import Profile from './components/pages/Profile';
-import Featured from './components/pages/Featured';
+import Navbar from './components/Navbar';
+import Home from './pages/Home';
+import Profile from './pages/Profile';
+import Featured from './pages/Featured';
 
 function App() {
 
@@ -37,6 +37,7 @@ function App() {
         <Navigate to='/'/>
     </Navbar>
     <Outlet />
+    <Home></Home>
 
       <SearchBar cardName={cardName} setCardName={setCardName} searchForCard={searchForCard} />
 
