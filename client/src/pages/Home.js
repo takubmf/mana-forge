@@ -1,8 +1,9 @@
 import React from 'react'
+import Featured from './Featured'
 
 function Home() {
   return (
-    <div>Home</div>
+    <Featured></Featured>
   )
 }
 

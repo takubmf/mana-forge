@@ -7,8 +7,8 @@ import {
 } from 'react-router-dom'
 import './index.css';
 import App from './App';
-import Featured from './components/pages/Featured';
-import Profile from './components/pages/Profile';
+import Featured from './pages/Featured';
+import Profile from './pages/Profile';
 
 
 const router = createBrowserRouter([
