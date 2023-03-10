@@ -9,7 +9,8 @@ import './index.css';
 import App from './App';
 import Featured from './pages/Featured';
 import Profile from './pages/Profile';
-
+import Login from './pages/Login';
+import SignUp from './pages/SignUp';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,14 @@ const router = createBrowserRouter([
       {
         path: 'profile',
         element: <Profile />
+      },
+      {
+        path: 'login',
+        element: <Login />
+      },
+      {
+        path: 'signup',
+        element: <SignUp />
       }
     ]
   }

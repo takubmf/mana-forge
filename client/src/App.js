@@ -8,6 +8,8 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Featured from './pages/Featured';
+import Login from './pages/Login';
+import SignUp from './pages/SignUp';
 
 function App() {
 
@@ -34,6 +36,8 @@ function App() {
       <Route exact path='/' element={<Home />} />
         <Route path='/about' element={<Featured/>} />
         <Route path='/projects' element={<Profile/>} />
+        <Route path='/login' element={<Login/>} />
+        <Route path='/signup' element={<SignUp/>} />
         <Navigate to='/'/>
     </Navbar>
     <Outlet />
