@@ -1,50 +1,62 @@
-import { BrowserRouter as Route, Navigate, Outlet}
-    from 'react-router-dom';
+import React from 'react'
+import { BrowserRouter as Route, Navigate, Outlet} from 'react-router-dom';
+import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink,} from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 import './App.css';
 import SearchBar from './components/SearchBar';
-import { useState } from 'react';
-import CardContainer from './components/CardContainer';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Featured from './pages/Featured';
+import Login from './pages/Login';
+import SignUp from './pages/SignUp';
+
+const httpLink = createHttpLink({
+  uri: '/graphql',
+});
+
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = localStorage.getItem('id_token');
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
+});
 
 function App() {
 
-  const [cardName, setCardName] = useState('')
-  const [cardData, setCardData] = useState({})
-
-  async function searchForCard(e) {
-    e.preventDefault()
-    const name = encodeURIComponent(cardName);
-    const url = `https://api.scryfall.com/cards/named?fuzzy=${name}`;
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-        setCardData(data)
-    } catch (error) {
-        console.error(error);
-    }
-}
   return (
     
+    <ApolloProvider client={client}>
+      <div>
+        <Navbar>
+          <Route exact path='/' element={<Home />} />
+          <Route path='/about' element={<Featured/>} />
+          <Route path='/projects' element={<Profile/>} />
+          <Route path='/login' element={<Login/>} />
+          <Route path='/signup' element={<SignUp/>} />
+          <Navigate to='/'/>
+        </Navbar>
+        <Outlet />
+        <Home></Home>
+        <SearchBar></SearchBar>
+        </div>
+    </ApolloProvider>
 
-    <div>
-    <Navbar>
-      <Route exact path='/' element={<Home />} />
-        <Route path='/about' element={<Featured/>} />
-        <Route path='/projects' element={<Profile/>} />
-        <Navigate to='/'/>
-    </Navbar>
-    <Outlet />
-    <Home></Home>
-
-      <SearchBar cardName={cardName} setCardName={setCardName} searchForCard={searchForCard} />
-
-      <CardContainer cardData={cardData} />
-    </div>
     );
 }
 
 
 export default App;
+
+
+

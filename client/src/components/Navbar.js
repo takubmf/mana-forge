@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import Auth from '../utils/auth';
 
 const styles ={
   nav:{
@@ -12,8 +13,12 @@ const styles ={
    padding: '0 1rem',
   }
 }
-    
 
+const logout = (event) => {
+  event.preventDefault();
+  Auth.logout();
+};
+  
 function Navbar() {
   return (
     <>
@@ -25,6 +30,22 @@ function Navbar() {
           </li>
           <li>
             <Link to='/profile'>Profile</Link>
+          </li>
+          <li>
+          {Auth.loggedIn() ? (
+            <button onClick={logout}>
+              Logout
+            </button>
+          ) : (
+            <>
+              <Link to="/login">
+                Login
+              </Link>
+              <Link to="/signup">
+                Signup
+              </Link>
+              </>
+          )}
           </li>
         </ul>
       </nav>
